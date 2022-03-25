@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "github.com/merkle-chain/proto";
+
+message CreateWalletRequest {
+  string name = 1;
+}
+
+message Wallet {
+  string id = 1;
+  string name = 2;
+  int64 derivationKey = 3;
+  string address = 4;
+  uint32 created_at = 5;
+}
+
+message GetWalletsResponse {
+  repeated Wallet wallets = 1;
+}
+
+message GetWalletsRequest {}
+
+message GetWalletByIdRequest {
+  string id = 1;
+}
+
+service WalletService {
+  rpc GetWallets(GetWalletsRequest) returns (GetWalletsResponse) {}
+  rpc CreateWallet(CreateWalletRequest) returns (Wallet) {}
+  rpc GetWalletById(GetWalletByIdRequest) returns (Wallet) {}
+}
